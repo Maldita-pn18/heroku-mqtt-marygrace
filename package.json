@@ -1,0 +1,25 @@
+{
+  "name": "heroku-mqtt-marygrace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maldita-pn18/heroku-mqtt-marygrace.git"
+  },
+  "author": "Mary Grace Cordoto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maldita-pn18/heroku-mqtt-marygrace/issues"
+  },
+  "homepage": "https://github.com/Maldita-pn18/heroku-mqtt-marygrace#readme",
+  "engines": {
+    "node": "10.15"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

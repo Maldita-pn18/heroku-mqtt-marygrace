@@ -1,0 +1,221 @@
+<html>
+
+<head>
+  <title>mows</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<style>
+  .Head {
+    background-color: lightblue;
+    color: black;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+  }
+  #address {
+    width: 98%;
+    margin-bottom: 10px;
+  }
+  .divBorder {
+    background-color: azure;
+    border: 2px solid black;
+    /* margin-left :25px; */
+  }
+  .Header {
+    background-color: lightblue;
+    color: black;
+    height: 40px;
+    padding-top: 10px;
+    border: 2px solid black;
+  }
+  #subscribeTopic,
+  #payload,
+  #publishTopic {
+    width: 98%;
+    margin-bottom: 15px;
+  }
+  .divMessage {
+    background-color: azure;
+  }
+  .Logoheader {
+    overflow: hidden;
+    background-color:azure;
+    overflow: auto;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.4);
+    top: 0;
+    
+  }
+  .logo {
+    height: 70px;
+    width: auto;
+  }
+  h5 {
+    text-align: center;
+  }
+  header{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .header-right{
+    margin-top:-55px;;
+  }
+</style>
+
+<body>
+  <header>
+    <div class="Logoheader">
+      <img
+        src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_300,h_300/http://redmaurosilva.com/wp-content/uploads/2016/11/MQTT-BROKER-FREE-1.png"
+        class="logo">
+      <div class="header-right">
+        <center><h3><b>My MQTT Website Application</b></h3></center>
+      </div>
+    </div>
+  </header>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="divBorder col-md-4">
+        <div class="row">
+          <div class="Head col-md-12">
+            <h6><b>Broker</b></h6>
+          </div>
+        </div>
+        <br>
+        <h6><b>Address:</b></h6>
+        <input id="address" type="text" name="address" placeholder="Address" value="wss://test.mosquitto.org:8081/mqtt" />
+        <br>
+        <button id="Btnconnect" class="btn btn-success btn-xs" type="button">Connect</button>
+        <button id="Btndisconnect" class="btn btn-danger btn-xs" type="button">Disconnect</button>
+        <br><br>
+        <h6><b>Status:</b></h6>
+        <p id="status"><i>status</i></p>
+      </div>
+
+      <div class="divBorder col-md-4">
+        <div class=" row">
+          <div class="Head col-md-12">
+            <h6><b>Publish</b></h6>
+          </div>
+        </div>
+        <br>
+        <h6><b>Topic:</b></h6>
+        <input id="publishTopic" type="text" name="publishTopic" placeholder=" Input topic " />
+        <br>
+        <h6><b>Payload:</b></h6>
+        <input id="payload" type="text" name="payload" placeholder=" Input payload " />
+        <button id="Btnpublish" class="btn btn-success btn-xs" type="button"
+          style="margin-bottom:10px;">Publish</button>
+      </div>
+
+      <div class="divBorder col-md-4">
+        <div class="row">
+          <div class="Head col-md-12">
+            <h6><b>Subscribe</b></h6>
+          </div>
+        </div>
+        <br>
+        <h6><b>Topic: </b></h6>
+        <input id="subscribeTopic" type="text" name="subscribeTopic" placeholder=" Input topic" />
+        <button id="Btnsubscribe" class="btn btn-success btn-xs" type="button"> <span
+            class="glyphicon glyphicon-thumbs-up"></span> Subscribe
+        </button>
+        <button id="Btnunsubscribe" class="btn btn-danger btn-xs" type="button"><span
+            class="glyphicon glyphicon-thumbs-down"></span> Unsubscribe</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class=" divMessage col-md-12 ">
+        <div class="row">
+          <div id="messages" class="Header col-md-12">
+            <h6><b>Message</b></h6>
+          </div>
+        </div>
+        <div class="row overflow-auto" style="height:200px;">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:20%;" scope="col">
+                  <h5>Topic</h5>
+                </th>
+                <th style="width: 45%;" scope="col">
+                  <h5>Payload</h5>
+                </th>
+                <th style="width:35%;" scope="col">
+                  <h5>Time Stamp</h5>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="divBorder col-md-6">
+        <div class="row">
+          <div class="Head col-md-12">
+            <h6><b>Publish History</b></h6>
+          </div>
+        </div>
+        <div class="row overflow-auto" style="height:200px;">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:20%;" scope="col">
+                  <h5>Topic</h5>
+                </th>
+                <th style="width: 45%;" scope="col">
+                  <h5>Payload</h5>
+                </th>
+                <th style="width:35%;" scope="col">
+                  <h5>Time Stamp</h5>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyPublish">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="divBorder col-md-6">
+        <div class="row">
+          <div class="Head col-md-12">
+            <h6><b>Subscribe History</b></h6>
+          </div>
+        </div>
+        <div class="row overflow-auto" style="height:200px;">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:40%;" scope="col">
+                  <h5>Topic</h5>
+                </th>
+                <th style="width:60%;" scope="col">
+                  <h5>Time Stamp</h5>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tableBodySubscribe">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="scripts/browserMqtt.js"></script>
+<script src="scripts/controller.js"></script>
+
+</html>
